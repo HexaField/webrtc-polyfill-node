@@ -10,7 +10,7 @@ export default defineConfig({
       fileName: "index",
     },
     rollupOptions: {
-      external: ["node-datachannel", "node-domexception", "node:stream"],
+      external: ["node-datachannel", "node-domexception", "node:stream", "node:buffer"],
     },
   },
 });

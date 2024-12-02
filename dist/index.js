@@ -2,39 +2,40 @@ var wt = Object.defineProperty;
 var ot = (c) => {
   throw TypeError(c);
 };
-var yt = (c, s, e) => s in c ? wt(c, s, { enumerable: !0, configurable: !0, writable: !0, value: e }) : c[s] = e;
-var l = (c, s, e) => yt(c, typeof s != "symbol" ? s + "" : s, e), We = (c, s, e) => s.has(c) || ot("Cannot " + e);
+var Ct = (c, s, e) => s in c ? wt(c, s, { enumerable: !0, configurable: !0, writable: !0, value: e }) : c[s] = e;
+var l = (c, s, e) => Ct(c, typeof s != "symbol" ? s + "" : s, e), We = (c, s, e) => s.has(c) || ot("Cannot " + e);
 var t = (c, s, e) => (We(c, s, "read from private field"), e ? e.call(c) : s.get(c)), i = (c, s, e) => s.has(c) ? ot("Cannot add the same private member more than once") : s instanceof WeakSet ? s.add(c) : s.set(c, e), a = (c, s, e, r) => (We(c, s, "write to private field"), r ? r.call(c, e) : s.set(c, e), e), m = (c, s, e) => (We(c, s, "access private method"), e);
-import { PeerConnection as Ct, RtcpReceivingSession as Et, Video as Rt, Audio as St } from "node-datachannel";
+import { PeerConnection as yt, RtcpReceivingSession as Et, Video as Rt, Audio as St } from "node-datachannel";
 import "node-domexception";
-import { Readable as kt } from "node:stream";
-var M;
+import { Blob as kt } from "node:buffer";
+import { Readable as bt } from "node:stream";
+var I;
 class Ue {
   /**
    * @param {RTCSessionDescriptionInit | null | undefined | object}  init
    */
   constructor(s) {
-    i(this, M);
+    i(this, I);
     l(this, "sdp");
-    a(this, M, s == null ? void 0 : s.type), this.sdp = (s == null ? void 0 : s.sdp) ?? "";
+    a(this, I, s == null ? void 0 : s.type), this.sdp = (s == null ? void 0 : s.sdp) ?? "";
   }
   get type() {
-    return t(this, M);
+    return t(this, I);
   }
   set type(s) {
     if (s !== "offer" && s !== "answer" && s !== "pranswer" && s !== "rollback")
       throw new TypeError(`Failed to set the 'type' property on 'RTCSessionDescription': The provided value '${s}' is not a valid enum value of type RTCSdpType.`);
-    a(this, M, s);
+    a(this, I, s);
   }
   toJSON() {
     return {
       sdp: this.sdp,
-      type: t(this, M)
+      type: t(this, I)
     };
   }
 }
-M = new WeakMap();
-const bt = [
+I = new WeakMap();
+const Dt = [
   "data-channel-failure",
   "dtls-failure",
   "fingerprint-failure",
@@ -52,7 +53,7 @@ class W extends DOMException {
   constructor(e, r) {
     if (arguments.length === 0) throw new TypeError("Failed to construct 'RTCError': 1 argument required, but only 0 present.");
     if (!e.errorDetail) throw new TypeError("Failed to construct 'RTCError': Failed to read the 'errorDetail' property from 'RTCErrorInit': Required member is undefined.");
-    if (!bt.includes(e.errorDetail)) throw new TypeError(`Failed to construct 'RTCError': Failed to read the 'errorDetail' property from 'RTCErrorInit': The provided value '${e.errorDetail}' is not a valid enum value of type RTCErrorDetailType.`);
+    if (!Dt.includes(e.errorDetail)) throw new TypeError(`Failed to construct 'RTCError': Failed to read the 'errorDetail' property from 'RTCErrorInit': The provided value '${e.errorDetail}' is not a valid enum value of type RTCErrorDetailType.`);
     super(r, "OperationError");
     i(this, Y);
     i(this, Z);
@@ -120,8 +121,7 @@ class Be extends Event {
   }
 }
 ne = new WeakMap();
-const Dt = {};
-var u, f, O, z, se, ie, ae, oe, q;
+var u, f, O, z, se, ie, ae, oe, _;
 class st extends EventTarget {
   /**
    * @param {import("node-datachannel").DataChannel} dataChannel
@@ -142,17 +142,17 @@ class st extends EventTarget {
     i(this, ae);
     i(this, oe);
     /** @type {import('./RTCPeerConnection.js').default} */
-    i(this, q);
+    i(this, _);
     l(this, "onbufferedamountlow");
     l(this, "onclose");
     l(this, "onclosing");
     l(this, "onerror");
     l(this, "onmessage");
     l(this, "onopen");
-    a(this, u, e), a(this, f, t(this, u).isOpen() ? "open" : "connecting"), a(this, O, 0), a(this, se, r.maxPacketLifeTime ?? null), a(this, ie, r.maxRetransmits ?? null), a(this, ae, r.negotiated ?? !1), a(this, oe, r.ordered ?? !0), a(this, q, n), t(this, u).onOpen(() => {
+    a(this, u, e), a(this, f, t(this, u).isOpen() ? "open" : "connecting"), a(this, O, 0), a(this, se, r.maxPacketLifeTime ?? null), a(this, ie, r.maxRetransmits ?? null), a(this, ae, r.negotiated ?? !1), a(this, oe, r.ordered ?? !0), a(this, _, n), t(this, u).onOpen(() => {
       a(this, f, "open"), this.dispatchEvent(new Event("open"));
     }), t(this, u).onClosed(() => setTimeout(() => {
-      t(this, f) !== "closed" && (t(this, q).connectionState === "closed" && this.dispatchEvent(new Be("error", { error: new W({ errorDetail: "sctp-failure", sctpCauseCode: 12 }, "User-Initiated Abort, reason=Close called") })), a(this, f, "closing"), this.dispatchEvent(new Event("closing")), a(this, f, "closed")), this.dispatchEvent(new Event("close"));
+      t(this, f) !== "closed" && (t(this, _).connectionState === "closed" && this.dispatchEvent(new Be("error", { error: new W({ errorDetail: "sctp-failure", sctpCauseCode: 12 }, "User-Initiated Abort, reason=Close called") })), a(this, f, "closing"), this.dispatchEvent(new Event("closing")), a(this, f, "closed")), this.dispatchEvent(new Event("close"));
     })), t(this, u).onError((o) => {
       this.dispatchEvent(
         new Be("error", {
@@ -166,7 +166,7 @@ class st extends EventTarget {
       this.dispatchEvent(new Event("bufferedamountlow"));
     }), t(this, u).onMessage((o) => {
       let d;
-      ArrayBuffer.isView(o) ? t(this, z) === "blob" ? d = new Dt([o]) : d = o.buffer : d = o, this.dispatchEvent(new MessageEvent("message", { data: d }));
+      ArrayBuffer.isView(o) ? t(this, z) === "blob" ? d = new kt([o]) : d = o.buffer : d = o, this.dispatchEvent(new MessageEvent("message", { data: d }));
     }), this.addEventListener("message", (o) => {
       var d;
       (d = this.onmessage) == null || d.call(this, o);
@@ -257,23 +257,23 @@ class st extends EventTarget {
   }
   close() {
     a(this, f, "closed"), setTimeout(() => {
-      t(this, q).connectionState === "closed" && this.dispatchEvent(new Be("error", { error: new W({ errorDetail: "sctp-failure", sctpCauseCode: 12 }, "User-Initiated Abort, reason=Close called") }));
+      t(this, _).connectionState === "closed" && this.dispatchEvent(new Be("error", { error: new W({ errorDetail: "sctp-failure", sctpCauseCode: 12 }, "User-Initiated Abort, reason=Close called") }));
     }), t(this, u).close();
   }
 }
-u = new WeakMap(), f = new WeakMap(), O = new WeakMap(), z = new WeakMap(), se = new WeakMap(), ie = new WeakMap(), ae = new WeakMap(), oe = new WeakMap(), q = new WeakMap();
+u = new WeakMap(), f = new WeakMap(), O = new WeakMap(), z = new WeakMap(), se = new WeakMap(), ie = new WeakMap(), ae = new WeakMap(), oe = new WeakMap(), _ = new WeakMap();
 const xt = {
   1: "rtp",
   2: "rtcp"
 };
-var ce, _, de, le, he, ue, pe, ge, me, N, U, ve, Te, B;
+var ce, q, de, le, he, ue, pe, ge, me, N, U, ve, Te, B;
 class x {
   /**
      * @param  {RTCIceCandidateInit} init={}
      */
   constructor({ candidate: s, sdpMLineIndex: e, sdpMid: r, usernameFragment: n } = {}) {
     i(this, ce);
-    i(this, _);
+    i(this, q);
     i(this, de);
     i(this, le);
     i(this, he);
@@ -288,9 +288,9 @@ class x {
     i(this, B);
     if (e == null && r == null)
       throw new TypeError("Failed to construct 'RTCIceCandidate': sdpMid and sdpMLineIndex are both null.");
-    if (a(this, _, s), a(this, N, e ?? null), a(this, U, r ?? null), a(this, B, n ?? null), s && s.indexOf("candidate:") !== -1) {
-      const o = s.slice(s.indexOf("candidate:") + 10), [d, p, T, C, J, H, Qe, G, ...w] = o.split(" ");
-      if (a(this, le, d), a(this, de, xt[p]), a(this, pe, T), a(this, ue, Number(C)), a(this, ce, J), a(this, he, Number(H)), a(this, Te, G), T === "tcp") {
+    if (a(this, q, s), a(this, N, e ?? null), a(this, U, r ?? null), a(this, B, n ?? null), s && s.indexOf("candidate:") !== -1) {
+      const o = s.slice(s.indexOf("candidate:") + 10), [d, p, T, y, J, H, Qe, G, ...w] = o.split(" ");
+      if (a(this, le, d), a(this, de, xt[p]), a(this, pe, T), a(this, ue, Number(y)), a(this, ce, J), a(this, he, Number(H)), a(this, Te, G), T === "tcp") {
         const Q = w.indexOf("tcptype");
         Q !== -1 && a(this, ve, w[Q + 1]);
       }
@@ -306,7 +306,7 @@ class x {
     return t(this, ce) ?? null;
   }
   get candidate() {
-    return t(this, _) ?? "";
+    return t(this, q) ?? "";
   }
   get component() {
     return t(this, de);
@@ -346,21 +346,21 @@ class x {
   }
   toJSON() {
     return {
-      candidate: t(this, _),
+      candidate: t(this, q),
       sdpMLineIndex: t(this, N),
       sdpMid: t(this, U),
       usernameFragment: t(this, B)
     };
   }
 }
-ce = new WeakMap(), _ = new WeakMap(), de = new WeakMap(), le = new WeakMap(), he = new WeakMap(), ue = new WeakMap(), pe = new WeakMap(), ge = new WeakMap(), me = new WeakMap(), N = new WeakMap(), U = new WeakMap(), ve = new WeakMap(), Te = new WeakMap(), B = new WeakMap();
+ce = new WeakMap(), q = new WeakMap(), de = new WeakMap(), le = new WeakMap(), he = new WeakMap(), ue = new WeakMap(), pe = new WeakMap(), ge = new WeakMap(), me = new WeakMap(), N = new WeakMap(), U = new WeakMap(), ve = new WeakMap(), Te = new WeakMap(), B = new WeakMap();
 var fe, we, je;
 class X extends EventTarget {
-  constructor({ kind: e, label: r }) {
+  constructor(e) {
     super();
     l(this, "media");
     l(this, "track");
-    l(this, "stream", new kt({ read: () => {
+    l(this, "stream", new bt({ read: () => {
     } }));
     i(this, fe);
     i(this, we);
@@ -369,10 +369,9 @@ class X extends EventTarget {
     l(this, "onmute");
     l(this, "onunmute");
     l(this, "onended");
-    if (!e) throw new TypeError("Failed to construct 'MediaStreamTrack': Failed to read the 'kind' property from 'MediaStreamTrackInit': Required member is undefined.");
-    a(this, fe, e), a(this, we, r), this.addEventListener("ended", (n) => {
-      var o, d;
-      (o = this.onended) == null || o.call(this, n), (d = this.track) == null || d.close(), this.stream.destroy();
+    a(this, fe, (e == null ? void 0 : e.kind) ?? ""), a(this, we, (e == null ? void 0 : e.label) ?? ""), this.addEventListener("ended", (r) => {
+      var n, o;
+      (n = this.onended) == null || n.call(this, r), (o = this.track) == null || o.close(), this.stream.destroy();
     }), this.stream.on("close", () => {
       this.stop();
     });
@@ -421,11 +420,11 @@ class X extends EventTarget {
   }
 }
 fe = new WeakMap(), we = new WeakMap(), je = new WeakMap();
-var ye, Ve, E;
+var Ce, Ve, E;
 const Je = class Je extends EventTarget {
   constructor(e) {
     super();
-    i(this, ye, !0);
+    i(this, Ce, !0);
     i(this, Ve, crypto.randomUUID());
     /** @type {Set<MediaStreamTrack>} */
     i(this, E, /* @__PURE__ */ new Set());
@@ -454,7 +453,7 @@ const Je = class Je extends EventTarget {
     }), this.dispatchEvent(new Event("active"));
   }
   get active() {
-    return t(this, ye);
+    return t(this, Ce);
   }
   get id() {
     return t(this, Ve);
@@ -483,10 +482,10 @@ const Je = class Je extends EventTarget {
   stop() {
     for (const e of this.getTracks())
       e.stop();
-    a(this, ye, !1), this.dispatchEvent(new Event("inactive"));
+    a(this, Ce, !1), this.dispatchEvent(new Event("inactive"));
   }
 };
-ye = new WeakMap(), Ve = new WeakMap(), E = new WeakMap();
+Ce = new WeakMap(), Ve = new WeakMap(), E = new WeakMap();
 let Ye = Je;
 var tt, rt, v;
 class ut extends EventTarget {
@@ -557,19 +556,19 @@ class ct {
     this.usernameFragment = s, this.password = e;
   }
 }
-var Ce, $;
+var ye, $;
 class Ge extends EventTarget {
   constructor({ pc: e }) {
     super();
-    i(this, Ce);
+    i(this, ye);
     /** @type {import('./RTCPeerConnection.js').default} */
     i(this, $);
     l(this, "onerror");
     l(this, "onstatechange");
-    a(this, $, e), a(this, Ce, new ut({ pc: e }));
+    a(this, $, e), a(this, ye, new ut({ pc: e }));
   }
   get iceTransport() {
-    return t(this, Ce);
+    return t(this, ye);
   }
   get state() {
     return t(this, $).connectionState === "disconnected" ? "closed" : t(this, $).connectionState;
@@ -578,8 +577,8 @@ class Ge extends EventTarget {
     return [new ArrayBuffer(0)];
   }
 }
-Ce = new WeakMap(), $ = new WeakMap();
-const Mt = {
+ye = new WeakMap(), $ = new WeakMap();
+const It = {
   Inactive: "inactive",
   RecvOnly: "recvonly",
   SendOnly: "sendonly",
@@ -593,30 +592,30 @@ const Mt = {
   stopped: "Inactive",
   undefined: "Unknown"
 };
-var I, k, Ee, j, Re;
+var M, k, Ee, j, Re;
 class $e {
   constructor({ transceiver: s, pc: e }) {
-    i(this, I);
+    i(this, M);
     i(this, k);
     i(this, Ee);
     i(this, j);
     i(this, Re);
-    a(this, I, s), a(this, j, new pt({ pc: e })), a(this, Re, new it({ pc: e }));
+    a(this, M, s), a(this, j, new pt({ pc: e })), a(this, Re, new it({ pc: e }));
   }
   _setNDCTrack(s) {
     t(this, k) || a(this, k, s);
   }
   get currentDirection() {
-    return Mt[t(this, I).direction()];
+    return It[t(this, M).direction()];
   }
   get direction() {
     return t(this, Ee);
   }
   set direction(s) {
-    a(this, Ee, s), t(this, j) && t(this, I).setDirection(dt[s]);
+    a(this, Ee, s), t(this, j) && t(this, M).setDirection(dt[s]);
   }
   get mid() {
-    return t(this, I).mid();
+    return t(this, M).mid();
   }
   get sender() {
     return t(this, j);
@@ -639,7 +638,7 @@ class $e {
     (s = t(this, k)) == null || s.close();
   }
 }
-I = new WeakMap(), k = new WeakMap(), Ee = new WeakMap(), j = new WeakMap(), Re = new WeakMap();
+M = new WeakMap(), k = new WeakMap(), Ee = new WeakMap(), j = new WeakMap(), Re = new WeakMap();
 var Se, ke;
 class pt {
   constructor({ pc: s }) {
@@ -760,28 +759,28 @@ class mt extends Event {
   }
 }
 xe = new WeakMap();
-var Me, Ie, Pe, Fe;
+var Ie, Me, Pe, Fe;
 class vt extends Event {
   constructor(e = "track", r) {
     if (arguments.length === 0) throw new TypeError(`Failed to construct 'RTCTrackEvent': 2 arguments required, but only ${arguments.length} present.`);
     if (typeof r != "object") throw new TypeError("Failed to construct 'RTCTrackEvent': The provided value is not of type 'RTCTrackEventInit'.");
-    if (!r.channel) throw new TypeError("Failed to construct 'RTCTrackEvent': Failed to read the 'channel' property from 'RTCTrackEventInit': Required member is undefined.");
-    if (r.receiver.constructor !== it) throw new TypeError("Failed to construct 'RTCTrackEvent': Failed to read the 'channel' property from 'RTCTrackEventInit': Failed to convert value to 'RTCRtpReceiver'.");
-    if (r.track.constructor !== X) throw new TypeError("Failed to construct 'RTCTrackEvent': Failed to read the 'channel' property from 'RTCTrackEventInit': Failed to convert value to 'MediaStreamTrack'.");
-    if (r.transceiver.constructor !== $e) throw new TypeError("Failed to construct 'RTCTrackEvent': Failed to read the 'channel' property from 'RTCTrackEventInit': Failed to convert value to 'RTCRtpTransceiver'.");
+    if (!r.streams) throw new TypeError("Failed to construct 'RTCTrackEvent': Failed to read the 'streams' property from 'RTCTrackEventInit': Required member is undefined.");
+    if (r.receiver.constructor !== it) throw new TypeError("Failed to construct 'RTCTrackEvent': Failed to read the 'receiver' property from 'RTCTrackEventInit': Failed to convert value to 'RTCRtpReceiver'.");
+    if (r.track.constructor !== X) throw new TypeError("Failed to construct 'RTCTrackEvent': Failed to read the 'track' property from 'RTCTrackEventInit': Failed to convert value to 'MediaStreamTrack'.");
+    if (r.transceiver.constructor !== $e) throw new TypeError("Failed to construct 'RTCTrackEvent': Failed to read the 'transceiver' property from 'RTCTrackEventInit': Failed to convert value to 'RTCRtpTransceiver'.");
     super("track");
-    i(this, Me);
     i(this, Ie);
+    i(this, Me);
     i(this, Pe);
     i(this, Fe);
     const { track: n, receiver: o, transceiver: d, streams: p } = r;
-    a(this, Me, n), a(this, Ie, o), a(this, Pe, d), a(this, Fe, p);
+    a(this, Ie, n), a(this, Me, o), a(this, Pe, d), a(this, Fe, p);
   }
   get track() {
-    return t(this, Me);
+    return t(this, Ie);
   }
   get receiver() {
-    return t(this, Ie);
+    return t(this, Me);
   }
   get transceiver() {
     return t(this, Pe);
@@ -790,7 +789,7 @@ class vt extends Event {
     return t(this, Fe) ?? [];
   }
 }
-Me = new WeakMap(), Ie = new WeakMap(), Pe = new WeakMap(), Fe = new WeakMap();
+Ie = new WeakMap(), Me = new WeakMap(), Pe = new WeakMap(), Fe = new WeakMap();
 var Le;
 class Ze extends Event {
   constructor(e, r) {
@@ -846,8 +845,8 @@ const lt = {
   stopped: "Inactive",
   undefined: "Unknown"
 };
-var h, V, F, L, y, He, Oe, ze, qe, b, R, S, A, g, D, ft, Ke, et;
-class It extends EventTarget {
+var h, V, F, L, C, He, Oe, ze, _e, b, R, S, A, g, D, ft, Ke, et;
+class Mt extends EventTarget {
   constructor(e = {}) {
     super();
     i(this, g);
@@ -856,13 +855,13 @@ class It extends EventTarget {
     i(this, F);
     /** @type {Set<RTCDataChannel>} */
     i(this, L, /* @__PURE__ */ new Set());
-    i(this, y);
+    i(this, C);
     i(this, He, null);
     i(this, Oe);
     /** @type {RTCIceCandidate[]} */
     i(this, ze, []);
     /** @type {RTCIceCandidate[]} */
-    i(this, qe, []);
+    i(this, _e, []);
     i(this, b);
     i(this, R, /* @__PURE__ */ new Set());
     i(this, S, []);
@@ -877,16 +876,16 @@ class It extends EventTarget {
     l(this, "onnegotiationneeded");
     l(this, "onsignalingstatechange");
     l(this, "ontrack");
-    this.setConfiguration(e), a(this, V, ht()), a(this, F, ht()), a(this, Oe, new Tt({ pc: this })), a(this, h, new Ct(t(this, y).peerIdentity || `peer-${Xe(7)}`, {
+    this.setConfiguration(e), a(this, V, ht()), a(this, F, ht()), a(this, Oe, new Tt({ pc: this })), a(this, h, new yt(t(this, C).peerIdentity || `peer-${Xe(7)}`, {
       ...e,
-      iceServers: t(this, y).iceServers.map((r) => (Array.isArray(r.urls) ? r.urls : [r.urls]).map((o) => {
+      iceServers: t(this, C).iceServers.map((r) => (Array.isArray(r.urls) ? r.urls : [r.urls]).map((o) => {
         if (r.username && r.credential) {
           const [d, p] = o.split(/:(.*)/);
           return `${d}:${r.username}:${r.credential}@${p}`;
         }
         return o;
       })).flat(),
-      iceTransportPolicy: t(this, y).iceTransportPolicy
+      iceTransportPolicy: t(this, C).iceTransportPolicy
     })), t(this, h).onStateChange(() => {
       this.dispatchEvent(new Event("connectionstatechange"));
     }), t(this, h).onIceStateChange(() => {
@@ -911,7 +910,7 @@ class It extends EventTarget {
       const o = new X();
       o.track = r, r.onClosed(() => {
         t(this, R).delete(r), o.dispatchEvent(new Event("ended"));
-      }), r.onMessage((d) => o.stream.push(d)), n.receiver.track = o, this.dispatchEvent(new vt("track", { track: o, receiver: n.receiver, transceiver: n }));
+      }), r.onMessage((d) => o.stream.push(d)), n.receiver.track = o, this.dispatchEvent(new vt("track", { track: o, receiver: n.receiver, transceiver: n, streams: [o.stream] }));
     }), this.addEventListener("connectionstatechange", (r) => {
       var n;
       (n = this.onconnectionstatechange) == null || n.call(this, r);
@@ -942,7 +941,7 @@ class It extends EventTarget {
     return t(this, ze);
   }
   get remoteCandidates() {
-    return t(this, qe);
+    return t(this, _e);
   }
   get canTrickleIceCandidates() {
     return t(this, He);
@@ -990,7 +989,7 @@ class It extends EventTarget {
     if ((e == null ? void 0 : e.candidate) == null)
       throw new DOMException("Candidate invalid");
     try {
-      t(this, h).addRemoteCandidate(e.candidate, e.sdpMid ?? "0"), t(this, qe).push(new x(e));
+      t(this, h).addRemoteCandidate(e.candidate, e.sdpMid ?? "0"), t(this, _e).push(new x(e));
     } catch (r) {
       if (!(r != null && r.message)) throw new DOMException(JSON.stringify(r), "UnknownError");
       const { message: n } = r;
@@ -1008,8 +1007,8 @@ class It extends EventTarget {
    */
   addTransceiver(e, { direction: r = "inactive", sendEncodings: n = void 0, streams: o = void 0 } = {}) {
     if (r === "sendrecv") throw new TypeError("unsupported");
-    const d = e instanceof X && e, T = (d && d.kind || e) === "video" ? new Rt("video", lt[r]) : new St("audio", lt[r]), C = new $e({ transceiver: T, pc: this });
-    return t(this, S).push(C), d ? m(this, g, Ke).call(this, T, d, C, r) : t(this, A).push(C), C;
+    const d = e instanceof X && e, T = (d && d.kind || e) === "video" ? new Rt("video", lt[r]) : new St("audio", lt[r]), y = new $e({ transceiver: T, pc: this });
+    return t(this, S).push(y), d ? m(this, g, Ke).call(this, T, d, y, r) : t(this, A).push(y), y;
   }
   getReceivers() {
     return t(this, S).map((e) => e.direction === "recvonly" && e.receiver).filter((e) => e);
@@ -1047,7 +1046,7 @@ class It extends EventTarget {
     return t(this, V);
   }
   getConfiguration() {
-    return t(this, y);
+    return t(this, C);
   }
   getSelectedCandidatePair() {
     return t(this, h).getSelectedCandidatePair();
@@ -1063,7 +1062,7 @@ class It extends EventTarget {
       ip: r == null ? void 0 : r.local.address,
       port: r == null ? void 0 : r.local.port
     });
-    const C = Xe(8), J = "RTCIceCandidate_" + C;
+    const y = Xe(8), J = "RTCIceCandidate_" + y;
     e.set(J, {
       id: J,
       type: "remote-candidate",
@@ -1072,7 +1071,7 @@ class It extends EventTarget {
       ip: r == null ? void 0 : r.remote.address,
       port: r == null ? void 0 : r.remote.port
     });
-    const H = "RTCIceCandidatePair_" + p + "_" + C;
+    const H = "RTCIceCandidatePair_" + p + "_" + y;
     e.set(H, {
       id: H,
       type: "candidate-pair",
@@ -1130,9 +1129,9 @@ class It extends EventTarget {
     }
     if (e.iceTransportPolicy ?? (e.iceTransportPolicy = "all"), e.rtcAudioJitterBufferFastAccelerate ?? (e.rtcAudioJitterBufferFastAccelerate = !1), e.rtcAudioJitterBufferMaxPackets ?? (e.rtcAudioJitterBufferMaxPackets = 200), e.rtcAudioJitterBufferMinDelayMs ?? (e.rtcAudioJitterBufferMinDelayMs = 0), e.rtcpMuxPolicy ?? (e.rtcpMuxPolicy = "require"), e.iceCandidatePoolSize < 0 || e.iceCandidatePoolSize > 255) throw new TypeError("Failed to execute 'setConfiguration' on 'RTCPeerConnection': Failed to read the 'iceCandidatePoolSize' property from 'RTCConfiguration': Value is outside the 'octet' value range.");
     if (e.bundlePolicy !== "balanced" && e.bundlePolicy !== "max-compat" && e.bundlePolicy !== "max-bundle") throw new TypeError("Failed to execute 'setConfiguration' on 'RTCPeerConnection': Failed to read the 'bundlePolicy' property from 'RTCConfiguration': The provided value '" + e.bundlePolicy + "' is not a valid enum value of type RTCBundlePolicy.");
-    if (t(this, y) && e.bundlePolicy !== t(this, y).bundlePolicy)
+    if (t(this, C) && e.bundlePolicy !== t(this, C).bundlePolicy)
       throw new DOMException("Failed to execute 'setConfiguration' on 'RTCPeerConnection': Attempted to modify the PeerConnection's configuration in an unsupported way.", "InvalidModificationError");
-    a(this, y, e);
+    a(this, C, e);
   }
   async setLocalDescription(e) {
     if (e == null || e.type == null)
@@ -1147,7 +1146,7 @@ class It extends EventTarget {
     t(this, h).setRemoteDescription(e.sdp, e.type);
   }
 }
-h = new WeakMap(), V = new WeakMap(), F = new WeakMap(), L = new WeakMap(), y = new WeakMap(), He = new WeakMap(), Oe = new WeakMap(), ze = new WeakMap(), qe = new WeakMap(), b = new WeakMap(), R = new WeakMap(), S = new WeakMap(), A = new WeakMap(), g = new WeakSet(), /** @param {{ type: string; sdp: string; } | null} desc */
+h = new WeakMap(), V = new WeakMap(), F = new WeakMap(), L = new WeakMap(), C = new WeakMap(), He = new WeakMap(), Oe = new WeakMap(), ze = new WeakMap(), _e = new WeakMap(), b = new WeakMap(), R = new WeakMap(), S = new WeakMap(), A = new WeakMap(), g = new WeakSet(), /** @param {{ type: string; sdp: string; } | null} desc */
 D = function(e) {
   return e ? new Ue(e) : null;
 }, ft = function(e) {
@@ -1177,15 +1176,15 @@ function ht() {
 function Xe(c = 0) {
   return Math.random().toString(36).substring(2, 2 + c);
 }
-var _e, Ne;
+var qe, Ne;
 class Pt {
   constructor() {
-    i(this, _e);
+    i(this, qe);
     i(this, Ne);
-    a(this, _e, null), a(this, Ne, []);
+    a(this, qe, null), a(this, Ne, []);
   }
   get expires() {
-    return t(this, _e);
+    return t(this, qe);
   }
   getFingerprints() {
     return t(this, Ne);
@@ -1194,7 +1193,7 @@ class Pt {
     return "";
   }
 }
-_e = new WeakMap(), Ne = new WeakMap();
+qe = new WeakMap(), Ne = new WeakMap();
 const Ft = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   MediaStream: Ye,
@@ -1208,7 +1207,7 @@ const Ft = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   RTCErrorEvent: Be,
   RTCIceCandidate: x,
   RTCIceTransport: ut,
-  RTCPeerConnection: It,
+  RTCPeerConnection: Mt,
   RTCPeerConnectionIceEvent: gt,
   RTCRtpReceiver: it,
   RTCRtpSender: pt,
@@ -1232,7 +1231,7 @@ export {
   Be as RTCErrorEvent,
   x as RTCIceCandidate,
   ut as RTCIceTransport,
-  It as RTCPeerConnection,
+  Mt as RTCPeerConnection,
   gt as RTCPeerConnectionIceEvent,
   it as RTCRtpReceiver,
   pt as RTCRtpSender,
