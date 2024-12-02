@@ -7,8 +7,8 @@ var l = (c, s, e) => Ct(c, typeof s != "symbol" ? s + "" : s, e), We = (c, s, e)
 var t = (c, s, e) => (We(c, s, "read from private field"), e ? e.call(c) : s.get(c)), i = (c, s, e) => s.has(c) ? ot("Cannot add the same private member more than once") : s instanceof WeakSet ? s.add(c) : s.set(c, e), a = (c, s, e, r) => (We(c, s, "write to private field"), r ? r.call(c, e) : s.set(c, e), e), m = (c, s, e) => (We(c, s, "access private method"), e);
 import { PeerConnection as yt, RtcpReceivingSession as Et, Video as Rt, Audio as St } from "node-datachannel";
 import "node-domexception";
-import { Blob as kt } from "node:buffer";
-import { Readable as bt } from "node:stream";
+import { Blob as bt } from "node:buffer";
+import { Readable as kt } from "node:stream";
 var I;
 class Ue {
   /**
@@ -166,7 +166,7 @@ class st extends EventTarget {
       this.dispatchEvent(new Event("bufferedamountlow"));
     }), t(this, u).onMessage((o) => {
       let d;
-      ArrayBuffer.isView(o) ? t(this, z) === "blob" ? d = new kt([o]) : d = o.buffer : d = o, this.dispatchEvent(new MessageEvent("message", { data: d }));
+      ArrayBuffer.isView(o) ? t(this, z) === "blob" ? d = new bt([o]) : d = o.buffer : d = o, this.dispatchEvent(new MessageEvent("message", { data: d }));
     }), this.addEventListener("message", (o) => {
       var d;
       (d = this.onmessage) == null || d.call(this, o);
@@ -360,7 +360,7 @@ class X extends EventTarget {
     super();
     l(this, "media");
     l(this, "track");
-    l(this, "stream", new bt({ read: () => {
+    l(this, "stream", new kt({ read: () => {
     } }));
     i(this, fe);
     i(this, we);
@@ -592,18 +592,18 @@ const It = {
   stopped: "Inactive",
   undefined: "Unknown"
 };
-var M, k, Ee, j, Re;
+var M, b, Ee, j, Re;
 class $e {
   constructor({ transceiver: s, pc: e }) {
     i(this, M);
-    i(this, k);
+    i(this, b);
     i(this, Ee);
     i(this, j);
     i(this, Re);
     a(this, M, s), a(this, j, new pt({ pc: e })), a(this, Re, new it({ pc: e }));
   }
   _setNDCTrack(s) {
-    t(this, k) || a(this, k, s);
+    t(this, b) || a(this, b, s);
   }
   get currentDirection() {
     return It[t(this, M).direction()];
@@ -625,29 +625,29 @@ class $e {
   }
   get stopped() {
     var s;
-    return (s = t(this, k)) == null ? void 0 : s.isClosed();
+    return (s = t(this, b)) == null ? void 0 : s.isClosed();
   }
   setDirection(s) {
     var e;
-    (e = t(this, k)) == null || e.setDirection(dt[s]);
+    (e = t(this, b)) == null || e.setDirection(dt[s]);
   }
   setCodecPreferences(s) {
   }
   stop() {
     var s;
-    (s = t(this, k)) == null || s.close();
+    (s = t(this, b)) == null || s.close();
   }
 }
-M = new WeakMap(), k = new WeakMap(), Ee = new WeakMap(), j = new WeakMap(), Re = new WeakMap();
-var Se, ke;
+M = new WeakMap(), b = new WeakMap(), Ee = new WeakMap(), j = new WeakMap(), Re = new WeakMap();
+var Se, be;
 class pt {
   constructor({ pc: s }) {
     l(this, "track");
     l(this, "transform");
     // TODO, is it worth tho?
     i(this, Se);
-    i(this, ke);
-    a(this, Se, new Ge({ pc: s })), a(this, ke, s);
+    i(this, be);
+    a(this, Se, new Ge({ pc: s })), a(this, be, s);
   }
   get dtmf() {
     return null;
@@ -678,7 +678,7 @@ class pt {
   async setParameters() {
   }
   setStreams(s) {
-    if (t(this, ke).connectionState !== "connected") throw new DOMException("Sender's connection is closed", "InvalidStateError");
+    if (t(this, be).connectionState !== "connected") throw new DOMException("Sender's connection is closed", "InvalidStateError");
     if (this.track)
       for (const e of s)
         e.addTrack(this.track);
@@ -687,18 +687,18 @@ class pt {
     throw new TypeError("Method unsupported");
   }
 }
-Se = new WeakMap(), ke = new WeakMap();
-var be;
+Se = new WeakMap(), be = new WeakMap();
+var ke;
 class it {
   constructor({ pc: s }) {
     l(this, "transform");
     // TODO, is it worth tho?
-    i(this, be);
+    i(this, ke);
     l(this, "track");
-    a(this, be, new Ge({ pc: s }));
+    a(this, ke, new Ge({ pc: s }));
   }
   get transport() {
-    return t(this, be) ?? null;
+    return t(this, ke) ?? null;
   }
   static getCapabilities(s) {
     if (!s) throw new TypeError("Failed to execute 'getCapabilities' on 'RTCRtpSender': 1 argument required, but only 0 present.");
@@ -727,7 +727,7 @@ class it {
     return [];
   }
 }
-be = new WeakMap();
+ke = new WeakMap();
 var De;
 class gt extends Event {
   constructor(e) {
@@ -845,7 +845,7 @@ const lt = {
   stopped: "Inactive",
   undefined: "Unknown"
 };
-var h, V, F, L, C, He, Oe, ze, _e, b, R, S, A, g, D, ft, Ke, et;
+var h, V, F, L, C, He, Oe, ze, _e, k, R, S, A, g, D, ft, Ke, et;
 class Mt extends EventTarget {
   constructor(e = {}) {
     super();
@@ -862,7 +862,7 @@ class Mt extends EventTarget {
     i(this, ze, []);
     /** @type {RTCIceCandidate[]} */
     i(this, _e, []);
-    i(this, b);
+    i(this, k);
     i(this, R, /* @__PURE__ */ new Set());
     i(this, S, []);
     i(this, A, []);
@@ -905,12 +905,13 @@ class Mt extends EventTarget {
       }
       this.dispatchEvent(new gt(new x({ candidate: r, sdpMid: n })));
     }), t(this, h).onTrack((r) => {
+      console.log(r, r.mid(), Object.entries(r));
       const n = new $e({ transceiver: r, pc: this });
       t(this, R).add(r), n._setNDCTrack(r), t(this, S).push(n);
       const o = new X();
       o.track = r, r.onClosed(() => {
         t(this, R).delete(r), o.dispatchEvent(new Event("ended"));
-      }), r.onMessage((d) => o.stream.push(d)), n.receiver.track = o, this.dispatchEvent(new vt("track", { track: o, receiver: n.receiver, transceiver: n, streams: [o.stream] }));
+      }), r.onMessage((d) => o.stream.push(d)), n.receiver.track = o, this.dispatchEvent(new vt("track", { track: o, receiver: n.receiver, transceiver: n, streams: r.streams }));
     }), this.addEventListener("connectionstatechange", (r) => {
       var n;
       (n = this.onconnectionstatechange) == null || n.call(this, r);
@@ -934,7 +935,7 @@ class Mt extends EventTarget {
       (n = this.ontrack) == null || n.call(this, r);
     }), this.addEventListener("negotiationneeded", (r) => {
       var n;
-      a(this, b, !0), (n = this.onnegotiationneeded) == null || n.call(this, r);
+      a(this, k, !0), (n = this.onnegotiationneeded) == null || n.call(this, r);
     });
   }
   get localCandidates() {
@@ -999,7 +1000,11 @@ class Mt extends EventTarget {
   addTrack(e, ...r) {
     for (const d of r) d.addTrack(e);
     const n = e.kind, o = m(this, g, ft).call(this, n);
-    return o ? (m(this, g, Ke).call(this, o.media, e, o, "sendonly"), o.sender) : this.addTransceiver(e, { direction: "sendonly" }).sender;
+    if (o) {
+      const d = m(this, g, Ke).call(this, o.media, e, o, "sendonly");
+      return d.streams = r, o.sender;
+    } else
+      return this.addTransceiver(e, { direction: "sendonly" }).sender;
   }
   /**
    * @param {MediaStreamTrack | string} trackOrKind
@@ -1040,7 +1045,7 @@ class Mt extends EventTarget {
   createDataChannel(e, r = {}) {
     r.ordered === !1 && (r.unordered = !0);
     const n = t(this, h).createDataChannel("" + e, r), o = m(this, g, et).call(this, n, r);
-    return t(this, b) == null && (a(this, b, !1), this.dispatchEvent(new Event("negotiationneeded"))), o;
+    return t(this, k) == null && (a(this, k, !1), this.dispatchEvent(new Event("negotiationneeded"))), o;
   }
   createOffer() {
     return t(this, V);
@@ -1146,7 +1151,7 @@ class Mt extends EventTarget {
     t(this, h).setRemoteDescription(e.sdp, e.type);
   }
 }
-h = new WeakMap(), V = new WeakMap(), F = new WeakMap(), L = new WeakMap(), C = new WeakMap(), He = new WeakMap(), Oe = new WeakMap(), ze = new WeakMap(), _e = new WeakMap(), b = new WeakMap(), R = new WeakMap(), S = new WeakMap(), A = new WeakMap(), g = new WeakSet(), /** @param {{ type: string; sdp: string; } | null} desc */
+h = new WeakMap(), V = new WeakMap(), F = new WeakMap(), L = new WeakMap(), C = new WeakMap(), He = new WeakMap(), Oe = new WeakMap(), ze = new WeakMap(), _e = new WeakMap(), k = new WeakMap(), R = new WeakMap(), S = new WeakMap(), A = new WeakMap(), g = new WeakSet(), /** @param {{ type: string; sdp: string; } | null} desc */
 D = function(e) {
   return e ? new Ue(e) : null;
 }, ft = function(e) {
@@ -1159,7 +1164,7 @@ D = function(e) {
     t(this, R).delete(p), r.dispatchEvent(new Event("ended"));
   }), p.setMediaHandler(d), r.media = e, r.track = p, n._setNDCTrack(p), r.stream.on("data", (T) => {
     p.sendMessageBinary(T);
-  }), o === "recvonly" ? n.receiver.track = r : o === "sendonly" && (n.sender.track = r), t(this, b) && (a(this, b, !1), this.dispatchEvent(new Event("negotiationneeded")));
+  }), o === "recvonly" ? n.receiver.track = r : o === "sendonly" && (n.sender.track = r), t(this, k) && (a(this, k, !1), this.dispatchEvent(new Event("negotiationneeded")));
 }, et = function(e, r) {
   const n = new st(e, r, this);
   return t(this, L).add(n), n.addEventListener("close", () => {
